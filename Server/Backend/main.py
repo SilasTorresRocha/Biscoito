@@ -63,8 +63,6 @@ app.mount("/static", StaticFiles(directory=frontdir), name="static")
 async def read_root():
     return FileResponse(os.path.join(frontdir, "Login.html")) 
 
-
-
 @app.post("/login")
 def realizar_login(dados: LoginSchema, db: Session = Depends(get_db)):
     usuario = db.query(UsuarioDB).filter(UsuarioDB.email == dados.email).first()
@@ -106,8 +104,18 @@ def processar_cadastro(dados: CadastroSchema, db: Session = Depends(get_db)):
     print(f"Novo usuário add: {novo_ze_ruela.email}")
     return {"status": 201, "mensagem": "Cadastro realizado com sucesso! Agora é só fazer login, vai la ser feliz"}
 
+@app.post("/calendario")
+def abrir_calendario(token: str = Depends(criar_token_acesso)):
+    try:
+        payload = jwt.decode(token, cahve_seg, algorithms=[metodo])
+        email_usuario = payload.get("sub")
+        if email_usuario is None:
+            raise HTTPException(status_code=401, detail="Token inválido")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Token inválido")
+    
+    return FileResponse(os.path.join(frontdir, "calendario.html"))
 
-#Ainda nao testei esse role
 @app.post("/AI")
 def responder_pergunta(pergunta: str, token: str = Depends(criar_token_acesso)):
     try:

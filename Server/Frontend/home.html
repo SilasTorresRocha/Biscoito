@@ -72,6 +72,7 @@
 
         .welcome-text h1 {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 5rem;
@@ -143,12 +144,13 @@
     <main class="main-container">
         <div class="welcome-text">
             <h1>Olá, <span id="usuario-nome"></span></h1>
-            <p>Aqui sua <strong>Rotina Inteligente </strong>e nossa prioridade!.</p>
+            <p>Aqui sua <strong>Rotina Inteligente </strong>e nossa prioridade!</p>
         </div>
 
         <div class="btn-group">
             <button class="btn btn-primary" onclick="alert('Criando rotina...')">Nova Tarefa</button>
-            <button class="btn btn-secondary">Ver Calendário</button>
+            <button class="btn btn-secondary" onclick="window.location.href='/calendario'">Ver Calendário</button>
+            <script src="static/calendario.js"></script>
         </div>
     </main>
 

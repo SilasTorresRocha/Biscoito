@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Biscoito - Calendário</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cor-fundo: #000000;
+            --roxo-destaque: #8a76d1; /* Baseado na sua print */
+            --texto-claro: #ffffff;
+        }
+
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--texto-claro);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Nav igual à sua Home */
+        nav {
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #222;
+        }
+
+        nav a {
+            color: var(--texto-claro);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        nav a.active {
+            border-bottom: 2px solid var(--roxo-destaque);
+        }
+
+        /* Estilização do Grid do Calendário */
+        #calendar {
+            background-color: #080808;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #1a1a1a;
+        }
+
+        /* Customização das cores do FullCalendar */
+        .fc-toolbar-title { color: var(--roxo-destaque) !important; }
+        .fc-button-primary { 
+            background-color: var(--roxo-destaque) !important; 
+            border: none !important; 
+        }
+        .fc-daygrid-day-number { color: #fff !important; text-decoration: none !important; }
+        .fc-col-header-cell-cushion { color: #aaa !important; text-decoration: none !important; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/home">HOME</a>
+        <a href="#" class="active">CALENDÁRIO</a>
+        <a href="/rotina">ROTINA</a>
+    </nav>
+
+    <div id="calendar"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/locales/pt-br.global.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'pt-br',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek'
+                },
+                height: 650
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+</html>
