@@ -7,5 +7,5 @@ echo Dependencias OK
 echo.
 echo Iniciando servidor
 echo.
-uvicorn main:app --reload
+python -m uvicorn main:app --reload
 pause
