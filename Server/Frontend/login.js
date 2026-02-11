@@ -5,7 +5,10 @@ formulario.addEventListener('submit', async (event) => {
 
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
+    const nome = email.split("@")[0]; 
     const loginData = { email, senha };
+    console.log("Nome:", nome);
+    alert("Ola, " + nome + "Ze ruela");
 
     try {
         const response = await fetch('http://localhost:8000/login', {
@@ -19,6 +22,7 @@ formulario.addEventListener('submit', async (event) => {
         if (data.status === 200) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('usuario', email);
+            localStorage.setItem('nome', nome);
 
             alert("Login OK! Redirecionando...");
             window.location.href = "/static/home.html";

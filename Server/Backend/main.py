@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 
 from database import maq, LocalConecao, UsuarioDB, Base
 
+from AI import gerar_resposta
+
 
 load_dotenv()
 
@@ -70,12 +72,12 @@ def realizar_login(dados: LoginSchema, db: Session = Depends(get_db)):
         return {"status": 404, "mensagem": "Quem cargas d'água é esse? Cadastre-se primeiro!"}
     
     senha_correta = senha_inf.verify(dados.senha, usuario.senha) # Nessa brincadeira, a senha do banco é o hash e a senha do input é a senha normal, ai ele compara os dois
-
+    nome_usuario = usuario.email.split("@")[0]
     if not senha_correta:
         return {"status": 401, "mensagem": "Desconfio mas nao posso provar... A senha esta errada"}
     
     token_acesso = criar_token_acesso(data={"sub": usuario.email})
-    return {"status": 200, "mensagem": "Ola, bem-vindo de volta","token": token_acesso}
+    return {"status": 200, "mensagem": "Ola, bem-vindo de volta","token": token_acesso, "nome": nome_usuario}
 
 class CadastroSchema(BaseModel):
     email: str
@@ -103,4 +105,19 @@ def processar_cadastro(dados: CadastroSchema, db: Session = Depends(get_db)):
     db.refresh(novo_ze_ruela)
     print(f"Novo usuário add: {novo_ze_ruela.email}")
     return {"status": 201, "mensagem": "Cadastro realizado com sucesso! Agora é só fazer login, vai la ser feliz"}
+
+
+#Ainda nao testei esse role
+@app.post("/AI")
+def responder_pergunta(pergunta: str, token: str = Depends(criar_token_acesso)):
+    try:
+        payload = jwt.decode(token, cahve_seg, algorithms=[metodo])
+        email_usuario = payload.get("sub")
+        if email_usuario is None:
+            raise HTTPException(status_code=401, detail="Token inválido")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Token inválido")
+    
+    resposta = gerar_resposta(pergunta)
+    return {"resposta": resposta}
 
