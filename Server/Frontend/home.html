@@ -1,109 +1,162 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<script>
-        const token = localStorage.getItem('token');
-        
-        // Se não tiver token, chuta para o login
-        if (!token) {
-            alert("Você não está logado! Saindo...");
-            window.location.href = "/";
-        }
-    </script>
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page de Teste</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Minha Rotina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo consolidado para o seu projeto de Engenharia */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+        body {
+            background-color: #000;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-    nav {
-      background: #333;
-      display: flex;
-      justify-content: center;
-    }
+        /* Barra de Navegação Superior */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px 50px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: flex-start;
+        }
 
-    nav a {
-      color: white;
-      padding: 14px 20px;
-      text-decoration: none;
-    }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 30px;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+            transition: 0.3s;
+        }
 
-    nav a:hover {
-      background: #575757;
-    }
+        .nav-links a:hover, .nav-links a.active {
+            font-weight: 600;
+        }
 
-    main {
-      padding: 20px;
-      text-align: center;
-    }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            bottom: -5px;
+            left: 0;
+        }
 
-    button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 5px;
-    }
+        /* Conteúdo Principal */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px);
+            text-align: center;
+            padding: 0 20px;
+        }
 
-    button:hover {
-      background: #45a049;
-    }
+        .welcome-text {
+            max-width: 800px;
+        }
 
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+        .welcome-text h1 {
+            font-size: 5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .welcome-text p {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .welcome-text strong {
+            color: #fff;
+            border-bottom: 2px solid #a29bfe; /* Destaque em roxo suave */
+        }
+
+        /* Botões de Ação */
+        .btn-group {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #a29bfe;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Bem-vindo à Home Page de Teste</h1>
-    <p>Exemplo simples com HTML, CSS e JavaScript</p>
-  </header>
 
-  <nav>
-    <a href="#">Início</a>
-    <a href="#">Sobre</a>
-    <a href="#">Contato</a>
-  </nav>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="/home" class="active">HOME</a>
+            <a href="/calendario">CALENDÁRIO</a>
+            <a href="/rotina">ROTINA</a>
+        </div>
+    </nav>
 
-  <main>
-    <h2>Conteúdo Principal</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate facilis, est magni tenetur quia quo et ratione sit corporis, impedit adipisci. Qui ad, temporibus aliquam nostrum sapiente accusantium cum quaerat?
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt aspernatur repudiandae error, nemo assumenda aperiam? Illo inventore, vitae, cupiditate cum sequi harum unde expedita eius, in soluta accusantium ipsam amet.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ea molestias enim consectetur, cumque cum modi, quaerat ipsum dolore autem tempore? Ipsam libero eligendi qui architecto. Laboriosam mollitia nulla expedita.
-    </p>
-    <button onclick="mostrarMensagem()">Clique aqui</button>
-    <p id="mensagem"></p>
-  </main>
+    <main class="main-container">
+        <div class="welcome-text">
+            <h1>Olá, <span id="usuario-nome"></span></h1>
+            <p>aqui você pode fazer sua <strong>Rotina baseada na sua tarefa diária</strong>.</p>
+        </div>
 
-  <footer>
-    <p>&copy; 2026 - Página de Teste</p>
-  </footer>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="alert('Criando rotina...')">Nova Tarefa</button>
+            <button class="btn btn-secondary">Ver Calendário</button>
+        </div>
+    </main>
 
-  <script>
-    function mostrarMensagem() {
-      document.getElementById("mensagem").innerText = "Você clicou no botão";
-    }
-  </script>
+    <script>
+        // Exibir o nome do usuário na página
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuarioNome = localStorage.getItem('usuario') || 'Usuário';
+            document.getElementById('usuario-nome').textContent = usuarioNome.split('@')[0];
+        });
+    </script>
 </body>
 </html>
