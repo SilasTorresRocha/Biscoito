@@ -9,6 +9,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from dotenv import load_dotenv
+from fastapi import Header
 
 from database import maq, LocalConecao, UsuarioDB, Base
 
@@ -104,18 +105,23 @@ def processar_cadastro(dados: CadastroSchema, db: Session = Depends(get_db)):
     print(f"Novo usuário add: {novo_ze_ruela.email}")
     return {"status": 201, "mensagem": "Cadastro realizado com sucesso! Agora é só fazer login, vai la ser feliz"}
 
-@app.post("/calendario")
-def abrir_calendario(token: str = Depends(criar_token_acesso)):
+# Função para validar o token que vem do Front
+def verificar_token(authorization: str = Header(None)):
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token faltando")
+    
+    token = authorization.split(" ")[1]
     try:
         payload = jwt.decode(token, cahve_seg, algorithms=[metodo])
-        email_usuario = payload.get("sub")
-        if email_usuario is None:
-            raise HTTPException(status_code=401, detail="Token inválido")
+        return payload
     except JWTError:
-        raise HTTPException(status_code=401, detail="Token inválido")
-    
+        raise HTTPException(status_code=401, detail="Token inválido ou expirado")
+
+@app.post("/calendario")
+def abrir_calendario(payload: dict = Depends(verificar_token)):
     return FileResponse(os.path.join(frontdir, "calendario.html"))
 
+"""
 @app.post("/AI")
 def responder_pergunta(pergunta: str, token: str = Depends(criar_token_acesso)):
     try:
@@ -128,4 +134,6 @@ def responder_pergunta(pergunta: str, token: str = Depends(criar_token_acesso)):
     
     resposta = gerar_resposta(pergunta)
     return {"resposta": resposta}
+"""
+
 
