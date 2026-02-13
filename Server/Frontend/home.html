@@ -135,9 +135,9 @@
 
     <nav class="navbar">
         <div class="nav-links">
-            <a href="/home" class="active">HOME</a>
-            <a href="/calendario">CALENDÁRIO</a>
-            <a href="/rotina">ROTINA</a>
+            <a href="/static/home.html" class="active">HOME</a>
+            <a href="#" onclick=" verCalendario()">CALENDÁRIO</a>
+            <a href="#">ROTINA</a>
         </div>
     </nav>
 
@@ -149,8 +149,8 @@
 
         <div class="btn-group">
             <button class="btn btn-primary" onclick="alert('Criando rotina...')">Nova Tarefa</button>
-            <button class="btn btn-secondary" onclick="window.location.href='/calendario'">Ver Calendário</button>
-            <script src="static/calendario.js"></script>
+            <button class="btn btn-secondary" onclick="verCalendario()">Ver Calendário</button>
+            <script src="/static/calendario.js"></script>
         </div>
     </main>
 

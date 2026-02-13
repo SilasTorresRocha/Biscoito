@@ -1,19 +1,24 @@
 async function verCalendario() {
-    const token = localStorage.getItem('token'); // Onde você guardou o token no login
+    const token = localStorage.getItem('token'); // Pega o crachá guardado no login
+    
+    try {
+        const response = await fetch('/calendario', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}` // Coloca o crachá no cabeçalho
+            }
+        });
 
-    const response = await fetch('/calendario', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}` // Ou como seu Depends espera receber
+        if (response.ok) {
+            const html = await response.text(); // O Python mandou o texto do HTML
+            document.open();
+            document.write(html);
+            document.close();
+        } else {
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "/"; // Se o token falhar, volta pro Login
         }
-    });
-
-    if (response.ok) {
-        const html = await response.text();
-        document.open();
-        document.write(html);
-        document.close();
-    } else {
-        alert("Sessão expirada ou acesso negado.");
+    } catch (error) {
+        console.error('Erro de conexão:', error);
     }
 }
